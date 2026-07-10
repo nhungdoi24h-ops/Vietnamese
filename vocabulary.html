@@ -1,5 +1,89 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bài học</title>
+
+<link rel="stylesheet" href="style.css">
+
 <script src="data.js"></script>
-
-<script src="js/audio.js"></script>
-
 <script src="app.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1 id="lessonTitle">Bài học</h1>
+
+</header>
+
+<div id="content"></div>
+
+<div style="margin:20px">
+
+<a class="button" href="lesson.html">
+
+⬅ Danh sách bài học
+
+</a>
+
+<a class="button" href="quiz.html">
+
+📝 Làm bài kiểm tra
+
+</a>
+
+</div>
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+
+const lessonIndex = Number(params.get("lesson")) || 0;
+
+const lesson = lessons[lessonIndex];
+
+document.getElementById("lessonTitle").innerHTML = lesson.title;
+
+let html = "";
+
+lesson.words.forEach(function(word){
+
+html += `
+
+<div class="card">
+
+<h2>${word.vn}</h2>
+
+<p><b>🇨🇳 Tiếng Trung:</b> ${word.cn}</p>
+
+<p><b>📝 Ví dụ:</b><br>${word.example}</p>
+
+<button onclick="speak('${word.vn}')">
+
+🔊 Phát âm
+
+</button>
+
+<button onclick="explain('${word.vn}','${word.cn}')">
+
+📖 Giải thích
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("content").innerHTML = html;
+
+</script>
+
+</body>
+</html>
