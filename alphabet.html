@@ -1,57 +1,170 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bảng chữ cái tiếng Việt</title>
-    <link rel="stylesheet" href="style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bảng chữ cái tiếng Việt</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.grid{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+
+gap:15px;
+
+padding:20px;
+
+}
+
+.card{
+
+text-align:center;
+
+}
+
+.letter{
+
+font-size:60px;
+
+font-weight:bold;
+
+color:#16a34a;
+
+}
+
+.name{
+
+font-size:22px;
+
+margin:10px 0;
+
+}
+
+</style>
+
 </head>
+
 <body>
 
 <header>
-    <h1>🔤 Bảng chữ cái tiếng Việt</h1>
+
+<h1>🔤 Bảng chữ cái tiếng Việt</h1>
+
+<p>越南语字母</p>
+
 </header>
 
-<div id="alphabetContainer" style="display: flex; flex-wrap: wrap; justify-content: center;"></div>
+<div class="grid" id="alphabet"></div>
 
 <script>
-    // Danh sách đầy đủ 29 chữ cái tiếng Việt
-    const alphabet = [
-        { char: "A", sound: "a" }, { char: "Ă", sound: "ă" }, { char: "Â", sound: "â" },
-        { char: "B", sound: "bờ" }, { char: "C", sound: "cờ" }, { char: "D", sound: "dờ" },
-        { char: "Đ", sound: "đờ" }, { char: "E", sound: "e" }, { char: "Ê", sound: "ê" },
-        { char: "G", sound: "gờ" }, { char: "H", sound: "hờ" }, { char: "I", sound: "i" },
-        { char: "K", sound: "ca" }, { char: "L", sound: "lờ" }, { char: "M", sound: "mờ" },
-        { char: "N", sound: "nờ" }, { char: "O", sound: "o" }, { char: "Ô", sound: "ô" },
-        { char: "Ơ", sound: "ơ" }, { char: "P", sound: "pờ" }, { char: "Q", sound: "cu" },
-        { char: "R", sound: "rờ" }, { char: "S", sound: "sờ" }, { char: "T", sound: "tờ" },
-        { char: "U", sound: "u" }, { char: "Ư", sound: "ư" }, { char: "V", sound: "vờ" },
-        { char: "X", sound: "xờ" }, { char: "Y", sound: "i dài" }
-    ];
 
-    const container = document.getElementById("alphabetContainer");
+const letters=[
 
-    alphabet.forEach(item => {
-        container.innerHTML += `
-            <div class="card" style="width: 80px; margin: 5px; text-align: center;">
-                <div class="letter" style="font-size: 24px; font-weight: bold;">${item.char}</div>
-                <button onclick="speak('${item.sound}')" style="margin-top: 5px;">🔊</button>
-            </div>
-        `;
-    });
+{name:"A",file:"A"},
 
-    function speak(text) {
-        // Hủy phát âm cũ để tránh chồng lấn âm thanh
-        window.speechSynthesis.cancel();
-        
-        const speech = new SpeechSynthesisUtterance(text);
-        speech.lang = "vi-VN"; // Thiết lập ngôn ngữ tiếng Việt[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span)
-        speech.rate = 0.8;    // Tốc độ phát âm chuẩn, chậm rãi[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)
-        speech.pitch = 1;     // Giọng cố định[span_5](start_span)[span_5](end_span)
-        
-        window.speechSynthesis.speak(speech);
-    }
+{name:"Ă",file:"AW"},
+
+{name:"Â",file:"AA"},
+
+{name:"B",file:"B"},
+
+{name:"C",file:"C"},
+
+{name:"D",file:"D"},
+
+{name:"Đ",file:"DD"},
+
+{name:"E",file:"E"},
+
+{name:"Ê",file:"EE"},
+
+{name:"G",file:"G"},
+
+{name:"H",file:"H"},
+
+{name:"I",file:"I"},
+
+{name:"K",file:"K"},
+
+{name:"L",file:"L"},
+
+{name:"M",file:"M"},
+
+{name:"N",file:"N"},
+
+{name:"O",file:"O"},
+
+{name:"Ô",file:"OO"},
+
+{name:"Ơ",file:"OW"},
+
+{name:"P",file:"P"},
+
+{name:"Q",file:"Q"},
+
+{name:"R",file:"R"},
+
+{name:"S",file:"S"},
+
+{name:"T",file:"T"},
+
+{name:"U",file:"U"},
+
+{name:"Ư",file:"UW"},
+
+{name:"V",file:"V"},
+
+{name:"X",file:"X"},
+
+{name:"Y",file:"Y"}
+
+];
+
+let html="";
+
+letters.forEach(function(item){
+
+html+=`
+
+<div class="card">
+
+<div class="letter">${item.name}</div>
+
+<div class="name">${item.name}</div>
+
+<button onclick="play('${item.file}')">
+
+🔊 Nghe
+
+</button>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("alphabet").innerHTML=html;
+
+function play(name){
+
+const audio=new Audio("audio/"+name+".mp3");
+
+audio.play();
+
+}
+
 </script>
 
 </body>
+
 </html>
