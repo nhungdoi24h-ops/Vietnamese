@@ -1,43 +1,39 @@
 let voiceList = [];
-let isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+// 判断是否微信内置浏览器
+const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
 
-// 预加载语音库
+// 加载全部语音音色缓存
 speechSynthesis.onvoiceschanged = () => {
   voiceList = speechSynthesis.getVoices();
 };
 
-// 统一朗读函数，兼容微信
+// 页面点击初始化语音（安卓微信必须用户主动交互解锁音频）
+document.addEventListener('click', () => {
+  voiceList = speechSynthesis.getVoices();
+}, { once: true });
+
 function speak(text) {
+  // 停止上一段语音，防止重叠杂音
   speechSynthesis.cancel();
-  const speech = new SpeechSynthesisUtterance(text);
-  speech.lang = "vi-VN";
-  speech.rate = 0.8;
-  speech.pitch = 1;
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "vi-VN";
+  utter.rate = 0.8;
+  utter.pitch = 1;
 
   // 优先匹配越南语音色
   const vnVoice = voiceList.find(v => v.lang === "vi-VN" || v.lang.startsWith("vi"));
-  if (vnVoice) speech.voice = vnVoice;
+  if (vnVoice) utter.voice = vnVoice;
 
-  // 微信特殊处理：延迟播放，规避微信音频拦截
+  // 微信/安卓延迟播放，规避音频拦截限制
   if (isWeChat) {
     setTimeout(() => {
-      speechSynthesis.speak(speech);
-    }, 100);
+      speechSynthesis.speak(utter);
+    }, 150);
   } else {
-    speechSynthesis.speak(speech);
+    speechSynthesis.speak(utter);
   }
 }
 
 function explain(vietnamese, chinese) {
-  alert(
-    "Tiếng Việt: " + vietnamese +
-    "\n\nTiếng Trung: " + chinese
-  );
+  alert(`Tiếng Việt: ${vietnamese}\n\nTiếng Trung: ${chinese}`);
 }
-
-// 微信强制触发语音初始化（页面点击任意地方激活音频权限）
-document.addEventListener('click', () => {
-  if (voiceList.length === 0) {
-    voiceList = speechSynthesis.getVoices();
-  }
-}, { once: true });
