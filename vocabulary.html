@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bài học</title>
+<title>Từ vựng</title>
 
 <link rel="stylesheet" href="style.css">
 
 <script src="data.js"></script>
+
+<script src="audio.js"></script>
+
 <script src="app.js"></script>
 
 </head>
@@ -47,43 +53,56 @@ const lessonIndex = Number(params.get("lesson")) || 0;
 
 const lesson = lessons[lessonIndex];
 
-document.getElementById("lessonTitle").innerHTML = lesson.title;
+document.getElementById("lessonTitle").textContent = lesson.title;
 
-let html = "";
+const content = document.getElementById("content");
 
-lesson.words.forEach(function(word){
+lesson.words.forEach(word => {
 
-html += `
+    const card = document.createElement("div");
 
-<div class="card">
+    card.className = "card";
 
-<h2>${word.vn}</h2>
+    card.innerHTML = `
 
-<p><b>🇨🇳 Tiếng Trung:</b> ${word.cn}</p>
+        <h2>${word.vn}</h2>
 
-<p><b>📝 Ví dụ:</b><br>${word.example}</p>
+        <p><b>🇨🇳 Tiếng Trung:</b> ${word.cn}</p>
 
-<button onclick="speak('${word.vn}')">
+        <p><b>📝 Ví dụ:</b><br>${word.example}</p>
+
+        <button class="speakBtn">
 
 🔊 Phát âm
 
 </button>
 
-<button onclick="explain('${word.vn}','${word.cn}')">
+        <button class="explainBtn">
 
 📖 Giải thích
 
 </button>
 
-</div>
+    `;
 
-`;
+    card.querySelector(".speakBtn").addEventListener("click",function(){
+
+        audio.speak(word.vn);
+
+    });
+
+    card.querySelector(".explainBtn").addEventListener("click",function(){
+
+        explain(word.vn,word.cn);
+
+    });
+
+    content.appendChild(card);
 
 });
-
-document.getElementById("content").innerHTML = html;
 
 </script>
 
 </body>
+
 </html>
