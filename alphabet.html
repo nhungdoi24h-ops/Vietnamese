@@ -5,79 +5,64 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Bảng chữ cái</title>
+<title>Bảng chữ cái tiếng Việt</title>
 
 <link rel="stylesheet" href="style.css">
 
-<script src="js/audio.js"></script>
+<script src="audio.js"></script>
 
 <style>
 
 body{
+    margin:0;
+    background:#f5f5f5;
+    font-family:Arial,sans-serif;
+}
 
-background:#f5f5f5;
-
-font-family:Arial;
-
+header{
+    background:#16a34a;
+    color:white;
+    text-align:center;
+    padding:20px;
 }
 
 .grid{
-
-display:grid;
-
-grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
-
-gap:15px;
-
-padding:20px;
-
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(120px,1fr));
+    gap:15px;
+    padding:20px;
 }
 
 .card{
-
-background:white;
-
-padding:20px;
-
-border-radius:15px;
-
-text-align:center;
-
-box-shadow:0 2px 10px rgba(0,0,0,.15);
-
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.15);
 }
 
 .letter{
-
-font-size:60px;
-
-font-weight:bold;
-
-color:#16a34a;
-
+    font-size:60px;
+    font-weight:bold;
+    color:#16a34a;
 }
 
 button{
+    width:100%;
+    margin-top:15px;
+    padding:12px;
+    border:none;
+    border-radius:10px;
+    background:#16a34a;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+}
 
-margin-top:15px;
-
-width:100%;
-
-padding:12px;
-
-background:#16a34a;
-
-border:none;
-
-border-radius:10px;
-
-color:white;
-
-font-size:16px;
-
+button:hover{
+    background:#138a3d;
 }
 
 </style>
@@ -88,21 +73,15 @@ font-size:16px;
 
 <header>
 
-<h1>
-
-🔤 Bảng chữ cái tiếng Việt
-
-</h1>
+<h1>🔤 Bảng chữ cái tiếng Việt</h1>
 
 </header>
 
-<div class="grid" id="alphabet">
-
-</div>
+<div class="grid" id="alphabet"></div>
 
 <script>
 
-const alphabet=[
+const alphabet = [
 
 "A","Ă","Â",
 
@@ -126,33 +105,39 @@ const alphabet=[
 
 ];
 
-let html="";
+const container = document.getElementById("alphabet");
 
 alphabet.forEach(letter=>{
 
-html+=`
+    const card=document.createElement("div");
 
-<div class="card">
+    card.className="card";
 
-<div class="letter">
+    card.innerHTML=`
 
-${letter}
+        <div class="letter">${letter}</div>
 
-</div>
+        <button>🔊 Nghe phát âm</button>
 
-<button onclick="audio.speak('${letter}')">
+    `;
 
-🔊 Nghe
+    card.querySelector("button").addEventListener("click",()=>{
 
-</button>
+        if(typeof audio==="undefined"){
 
-</div>
+            alert("Không tìm thấy audio.js");
 
-`;
+            return;
+
+        }
+
+        audio.speak(letter);
+
+    });
+
+    container.appendChild(card);
 
 });
-
-document.getElementById("alphabet").innerHTML=html;
 
 </script>
 
