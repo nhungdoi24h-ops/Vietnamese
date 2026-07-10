@@ -5,13 +5,24 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
 
-<title>Bảng chữ cái tiếng Việt</title>
+<title>Bảng chữ cái</title>
 
 <link rel="stylesheet" href="style.css">
 
+<script src="js/audio.js"></script>
+
 <style>
+
+body{
+
+background:#f5f5f5;
+
+font-family:Arial;
+
+}
 
 .grid{
 
@@ -27,7 +38,15 @@ padding:20px;
 
 .card{
 
+background:white;
+
+padding:20px;
+
+border-radius:15px;
+
 text-align:center;
+
+box-shadow:0 2px 10px rgba(0,0,0,.15);
 
 }
 
@@ -41,11 +60,23 @@ color:#16a34a;
 
 }
 
-.name{
+button{
 
-font-size:22px;
+margin-top:15px;
 
-margin:10px 0;
+width:100%;
+
+padding:12px;
+
+background:#16a34a;
+
+border:none;
+
+border-radius:10px;
+
+color:white;
+
+font-size:16px;
 
 }
 
@@ -57,91 +88,59 @@ margin:10px 0;
 
 <header>
 
-<h1>🔤 Bảng chữ cái tiếng Việt</h1>
+<h1>
 
-<p>越南语字母</p>
+🔤 Bảng chữ cái tiếng Việt
+
+</h1>
 
 </header>
 
-<div class="grid" id="alphabet"></div>
+<div class="grid" id="alphabet">
+
+</div>
 
 <script>
 
-const letters=[
+const alphabet=[
 
-{name:"A",file:"A"},
+"A","Ă","Â",
 
-{name:"Ă",file:"AW"},
+"B","C","D","Đ",
 
-{name:"Â",file:"AA"},
+"E","Ê",
 
-{name:"B",file:"B"},
+"G","H",
 
-{name:"C",file:"C"},
+"I",
 
-{name:"D",file:"D"},
+"K","L","M","N",
 
-{name:"Đ",file:"DD"},
+"O","Ô","Ơ",
 
-{name:"E",file:"E"},
+"P","Q","R","S","T",
 
-{name:"Ê",file:"EE"},
+"U","Ư",
 
-{name:"G",file:"G"},
-
-{name:"H",file:"H"},
-
-{name:"I",file:"I"},
-
-{name:"K",file:"K"},
-
-{name:"L",file:"L"},
-
-{name:"M",file:"M"},
-
-{name:"N",file:"N"},
-
-{name:"O",file:"O"},
-
-{name:"Ô",file:"OO"},
-
-{name:"Ơ",file:"OW"},
-
-{name:"P",file:"P"},
-
-{name:"Q",file:"Q"},
-
-{name:"R",file:"R"},
-
-{name:"S",file:"S"},
-
-{name:"T",file:"T"},
-
-{name:"U",file:"U"},
-
-{name:"Ư",file:"UW"},
-
-{name:"V",file:"V"},
-
-{name:"X",file:"X"},
-
-{name:"Y",file:"Y"}
+"V","X","Y"
 
 ];
 
 let html="";
 
-letters.forEach(function(item){
+alphabet.forEach(letter=>{
 
 html+=`
 
 <div class="card">
 
-<div class="letter">${item.name}</div>
+<div class="letter">
 
-<div class="name">${item.name}</div>
+${letter}
 
-<button onclick="play('${item.file}')">
+</div>
+
+<button onclick="audio.speak('${letter}')">
 
 🔊 Nghe
 
@@ -154,14 +153,6 @@ html+=`
 });
 
 document.getElementById("alphabet").innerHTML=html;
-
-function play(name){
-
-const audio=new Audio("audio/"+name+".mp3");
-
-audio.play();
-
-}
 
 </script>
 
