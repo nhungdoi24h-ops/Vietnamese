@@ -1,234 +1,39 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bảng chữ cái tiếng Việt</title>
-<link rel="stylesheet" href="style.css">
-<script src="app.js"></script>
-<style>
-.letter {
-    font-size: 48px;
-    font-weight: bold;
-    color: #16a34a;
-    margin-bottom: 8px;
+let voiceList = [];
+// 判断是否微信内置浏览器
+const isWeChat = /MicroMessenger/i.test(navigator.userAgent);
+
+// 加载全部语音音色缓存
+speechSynthesis.onvoiceschanged = () => {
+  voiceList = speechSynthesis.getVoices();
+};
+
+// 页面点击初始化语音（安卓微信必须用户主动交互解锁音频）
+document.addEventListener('click', () => {
+  voiceList = speechSynthesis.getVoices();
+}, { once: true });
+
+function speak(text) {
+  // 停止上一段语音，防止重叠杂音
+  speechSynthesis.cancel();
+  const utter = new SpeechSynthesisUtterance(text);
+  utter.lang = "vi-VN";
+  utter.rate = 0.8;
+  utter.pitch = 1;
+
+  // 优先匹配越南语音色
+  const vnVoice = voiceList.find(v => v.lang === "vi-VN" || v.lang.startsWith("vi"));
+  if (vnVoice) utter.voice = vnVoice;
+
+  // 微信/安卓延迟播放，规避音频拦截限制
+  if (isWeChat) {
+    setTimeout(() => {
+      speechSynthesis.speak(utter);
+    }, 150);
+  } else {
+    speechSynthesis.speak(utter);
+  }
 }
-.sound {
-    font-size: 16px;
-    color: #555;
+
+function explain(vietnamese, chinese) {
+  alert(`Tiếng Việt: ${vietnamese}\n\nTiếng Trung: ${chinese}`);
 }
-.wrap-card {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
-    padding: 10px;
-}
-.tip-box{
-    margin:15px;
-    padding:15px;
-    background:#fff3cd;
-    border-radius:12px;
-    color:#856404;
-}
-</style>
-</head>
-<body>
-<header>
-<h1>🔤 Bảng chữ cái tiếng Việt</h1>
-<p>越南语完整29个字母发音学习</p>
-</header>
-
-<div class="tip-box">
-💡 Lưu ý: Trên WeChat nếu không nghe được phát âm, bấm nút bên dưới mở trình duyệt ngoài
-</div>
-<a class="button" href="" onclick="window.open(location.href);return false;">
-🌐 Mở bằng trình duyệt ngoài (Chrome/Edge)
-</a>
-
-<div class="wrap-card">
-    <!-- A系列 -->
-    <div class="card">
-        <div class="letter">A</div>
-        <p class="sound">Đọc là: a</p>
-        <button onclick="speak('A')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Ă</div>
-        <p class="sound">Đọc là: ă</p>
-        <button onclick="speak('Ă')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Â</div>
-        <p class="sound">Đọc là: â</p>
-        <button onclick="speak('Â')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- B C D Đ -->
-    <div class="card">
-        <div class="letter">B</div>
-        <p class="sound">Đọc là: bờ</p>
-        <button onclick="speak('B')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">C</div>
-        <p class="sound">Đọc là: cờ</p>
-        <button onclick="speak('C')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">D</div>
-        <p class="sound">Đọc là: dờ</p>
-        <button onclick="speak('D')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Đ</div>
-        <p class="sound">Đọc là: đờ</p>
-        <button onclick="speak('Đ')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- E Ê -->
-    <div class="card">
-        <div class="letter">E</div>
-        <p class="sound">Đọc là: e</p>
-        <button onclick="speak('E')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Ê</div>
-        <p class="sound">Đọc là: ê</p>
-        <button onclick="speak('Ê')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- F G H -->
-    <div class="card">
-        <div class="letter">F</div>
-        <p class="sound">Đọc là: ép</p>
-        <button onclick="speak('F')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">G</div>
-        <p class="sound">Đọc là: gờ</p>
-        <button onclick="speak('G')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">H</div>
-        <p class="sound">Đọc là: hờ</p>
-        <button onclick="speak('H')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- I -->
-    <div class="card">
-        <div class="letter">I</div>
-        <p class="sound">Đọc là: i</p>
-        <button onclick="speak('I')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- K L M N -->
-    <div class="card">
-        <div class="letter">K</div>
-        <p class="sound">Đọc là: Ka</p>
-        <button onclick="speak('K')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">L</div>
-        <p class="sound">Đọc là: lờ</p>
-        <button onclick="speak('L')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">M</div>
-        <p class="sound">Đọc là: mờ</p>
-        <button onclick="speak('M')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">N</div>
-        <p class="sound">Đọc là: nờ</p>
-        <button onclick="speak('N')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- O Ô Ơ -->
-    <div class="card">
-        <div class="letter">O</div>
-        <p class="sound">Đọc là: o</p>
-        <button onclick="speak('O')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Ô</div>
-        <p class="sound">Đọc là: ô</p>
-        <button onclick="speak('Ô')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Ơ</div>
-        <p class="sound">Đọc là: ơ</p>
-        <button onclick="speak('Ơ')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- P Q R S T -->
-    <div class="card">
-        <div class="letter">P</div>
-        <p class="sound">Đọc là: pờ</p>
-        <button onclick="speak('P')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Q</div>
-        <p class="sound">Đọc là: quờ</p>
-        <button onclick="speak('Q')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">R</div>
-        <p class="sound">Đọc là: rờ</p>
-        <button onclick="speak('R')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">S</div>
-        <p class="sound">Đọc là: sờ</p>
-        <button onclick="speak('S')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">T</div>
-        <p class="sound">Đọc là: tờ</p>
-        <button onclick="speak('T')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- U Ư -->
-    <div class="card">
-        <div class="letter">U</div>
-        <p class="sound">Đọc là: u</p>
-        <button onclick="speak('U')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Ư</div>
-        <p class="sound">Đọc là: ư</p>
-        <button onclick="speak('Ư')">🔊 Nghe phát âm</button>
-    </div>
-
-    <!-- V W X Y Z -->
-    <div class="card">
-        <div class="letter">V</div>
-        <p class="sound">Đọc là: vờ</p>
-        <button onclick="speak('V')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">W</div>
-        <p class="sound">Đọc là: Vê kép</p>
-        <button onclick="speak('W')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">X</div>
-        <p class="sound">Đọc là: xờ</p>
-        <button onclick="speak('X')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Y</div>
-        <p class="sound">Đọc là: i dài</p>
-        <button onclick="speak('Y')">🔊 Nghe phát âm</button>
-    </div>
-    <div class="card">
-        <div class="letter">Z</div>
-        <p class="sound">Đọc là: Zét</p>
-        <button onclick="speak('Z')">🔊 Nghe phát âm</button>
-    </div>
-</div>
-
-<div style="margin:20px;">
-    <a class="button" href="index.html">⬅ Trở về trang chủ</a>
-</div>
-</body>
-</html>
