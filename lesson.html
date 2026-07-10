@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
+
 <meta charset="UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Danh sách bài học</title>
@@ -12,6 +15,19 @@
 
 <style>
 
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f5f5f5;
+}
+
+header{
+    background:#16a34a;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
 .lesson{
     background:white;
     margin:15px;
@@ -21,12 +37,26 @@
 }
 
 .lesson h2{
+    margin:0 0 10px;
     color:#16a34a;
-    margin-bottom:10px;
 }
 
 .lesson p{
     color:#666;
+}
+
+.button{
+    display:inline-block;
+    margin-top:15px;
+    padding:12px 20px;
+    background:#16a34a;
+    color:white;
+    text-decoration:none;
+    border-radius:10px;
+}
+
+.button:hover{
+    background:#138a3d;
 }
 
 </style>
@@ -39,11 +69,13 @@
 
 <h1>📚 Danh sách bài học</h1>
 
-<p>选择课程</p>
+<p>Chọn bài học để bắt đầu</p>
 
 </header>
 
-<div id="list"></div>
+<div id="lessonList"></div>
+
+<div style="text-align:center;margin:20px;">
 
 <a class="button" href="index.html">
 
@@ -51,34 +83,51 @@
 
 </a>
 
+</div>
+
 <script>
 
-let html="";
+const container = document.getElementById("lessonList");
 
-lessons.forEach(function(item,index){
+if(typeof lessons === "undefined"){
 
-html += `
-<div class="lesson">
+    container.innerHTML = `
+        <div class="lesson">
+            <h2>Lỗi</h2>
+            <p>Không tìm thấy dữ liệu bài học.</p>
+            <p>Hãy kiểm tra file <b>data.js</b>.</p>
+        </div>
+    `;
 
-<h2>${item.title}</h2>
+}else{
 
-<p>Số từ: ${item.words.length}</p>
+    lessons.forEach((lesson,index)=>{
 
-<a class="button"
-href="vocabulary.html?lesson=${index}">
+        const card=document.createElement("div");
 
-Bắt đầu học
+        card.className="lesson";
 
-</a>
+        card.innerHTML=`
 
-</div>
-`;
+            <h2>${lesson.title}</h2>
 
-});
+            <p>📖 Số từ: ${lesson.words.length}</p>
 
-document.getElementById("list").innerHTML=html;
+            <a class="button"
+               href="vocabulary.html?lesson=${index}">
+               Bắt đầu học
+            </a>
+
+        `;
+
+        container.appendChild(card);
+
+    });
+
+}
 
 </script>
 
 </body>
+
 </html>
