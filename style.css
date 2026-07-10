@@ -1,71 +1,183 @@
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-body{
-    font-family:Arial,sans-serif;
-    background:#f5f5f5;
-    color:#333;
+body {
+    font-family: "PingFang SC", Arial, sans-serif;
+    background: linear-gradient(135deg, #ecfdf5 0%, #f0fdf4 100%);
+    color: #222;
+    padding-bottom: 80px;
+    line-height: 1.55;
 }
 
-header{
-    background:#16a34a;
-    color:white;
-    text-align:center;
-    padding:25px;
+/* 顶部头部渐变美化 */
+header {
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    text-align: center;
+    padding: 30px 15px;
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+}
+header h1 {
+    font-size: 26px;
+    margin-bottom: 10px;
+    letter-spacing: 1px;
+}
+header p {
+    opacity: 0.92;
+    font-size: 16px;
 }
 
-.card{
-    background:white;
-    margin:15px;
-    padding:20px;
-    border-radius:15px;
-    box-shadow:0 2px 8px rgba(0,0,0,.12);
+/* 通用卡片美化 带悬浮动画 */
+.card {
+    background: white;
+    margin: 16px;
+    padding: 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.12);
+    transition: all 0.25s ease;
+}
+.card:active {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.18);
 }
 
-.button{
-    display:block;
-    margin:12px 15px;
-    padding:15px;
-    text-align:center;
-    background:#16a34a;
-    color:white;
-    text-decoration:none;
-    border-radius:12px;
-    font-size:18px;
+/* 微信提示提示框 */
+.tip-box {
+    margin: 16px;
+    padding: 16px 20px;
+    background: linear-gradient(135deg, #fffbeb, #fef3c7);
+    border-radius: 16px;
+    color: #92400e;
+    border-left: 5px solid #f59e0b;
 }
 
-.button:hover{
-    background:#138a3d;
+/* 字母页面专属样式 */
+.letter {
+    font-size: 52px;
+    font-weight: bold;
+    background: linear-gradient(135deg, #059669, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+.sound {
+    font-size: 16px;
+    color: #525252;
+}
+.wrap-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
+    gap: 14px;
+    padding: 0 12px;
 }
 
-button{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
-    background:#16a34a;
-    color:white;
-    font-size:18px;
-    margin-top:10px;
+/* 全局按钮样式 渐变+动效 */
+.button {
+    display: block;
+    margin: 14px 16px;
+    padding: 16px;
+    text-align: center;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    text-decoration: none;
+    border-radius: 16px;
+    font-size: 18px;
+    font-weight: 500;
+    box-shadow: 0 3px 10px rgba(16, 185, 129, 0.22);
+    transition: all 0.2s ease;
+}
+.button:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(16, 185, 129, 0.15);
 }
 
-.bottom{
-    position:fixed;
-    bottom:0;
-    left:0;
-    width:100%;
-    background:white;
-    display:flex;
-    justify-content:space-around;
-    padding:10px 0;
-    box-shadow:0 -2px 8px rgba(0,0,0,.15);
+/* 卡片内原生按钮 */
+button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #059669, #10b981);
+    color: white;
+    font-size: 17px;
+    margin-top: 12px;
+    box-shadow: 0 3px 8px rgba(16, 185, 129, 0.18);
+    transition: all 0.2s ease;
+}
+button:active {
+    transform: scale(0.96);
+    opacity: 0.93;
 }
 
-.bottom a{
-    text-decoration:none;
-    color:#16a34a;
-    text-align:center;
+/* 底部固定导航栏 */
+.bottom {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: white;
+    display: flex;
+    justify-content: space-around;
+    padding: 12px 0;
+    box-shadow: 0 -3px 12px rgba(16, 185, 129, 0.12);
+    border-radius: 20px 20px 0 0;
+}
+.bottom a {
+    text-decoration: none;
+    color: #059669;
+    text-align: center;
+    font-size: 14px;
+}
+.bottom span {
+    font-size: 24px;
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* lesson.html 课程卡片 */
+.lesson h2 {
+    background: linear-gradient(135deg, #059669, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 12px;
+    font-size: 22px;
+}
+.lesson p {
+    color: #666;
+    margin-bottom: 14px;
+    font-size: 16px;
+}
+
+/* vocabulary.html 单词页面文字 */
+#content h2 {
+    font-size: 24px;
+    background: linear-gradient(135deg, #059669, #10b981);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    margin-bottom: 10px;
+}
+#content p {
+    line-height: 1.7;
+    margin: 8px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+/* quiz.html 答题页面标题 */
+.card h2 {
+    font-size: 20px;
+    margin-bottom: 12px;
+    color: #222;
+}
+
+/* profile.html 个人页面头像美化 */
+.avatar {
+    font-size: 86px;
+    margin: 10px 0;
 }
