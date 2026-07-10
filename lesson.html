@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Danh sách bài học</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="data.js"></script>
+
+<style>
+
+.lesson{
+    background:white;
+    margin:15px;
+    padding:20px;
+    border-radius:15px;
+    box-shadow:0 2px 8px rgba(0,0,0,.15);
+}
+
+.lesson h2{
+    color:#16a34a;
+    margin-bottom:10px;
+}
+
+.lesson p{
+    color:#666;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>📚 Danh sách bài học</h1>
+
+<p>选择课程</p>
+
+</header>
+
+<div id="list"></div>
+
+<a class="button" href="index.html">
+
+🏠 Trang chủ
+
+</a>
+
+<script>
+
+let html="";
+
+lessons.forEach(function(item,index){
+
+html += `
+<div class="lesson">
+
+<h2>${item.title}</h2>
+
+<p>Số từ: ${item.words.length}</p>
+
+<a class="button"
+href="vocabulary.html?lesson=${index}">
+
+Bắt đầu học
+
+</a>
+
+</div>
+`;
+
+});
+
+document.getElementById("list").innerHTML=html;
+
+</script>
+
+</body>
+</html>

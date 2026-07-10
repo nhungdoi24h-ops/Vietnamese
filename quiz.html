@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Bài kiểm tra</title>
+
+<link rel="stylesheet" href="style.css">
+<script src="app.js"></script>
+
+</head>
+
+<body>
+
+<header>
+
+<h1>📝 Bài kiểm tra</h1>
+
+<p>第一课：问候</p>
+
+</header>
+
+<div class="card">
+
+<h2>1. "Xin chào" nghĩa là gì?</h2>
+
+<button onclick="checkAnswer(true)">
+你好
+</button>
+
+<button onclick="checkAnswer(false)">
+谢谢
+</button>
+
+<button onclick="checkAnswer(false)">
+再见
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>2. "Cảm ơn" nghĩa là gì?</h2>
+
+<button onclick="checkAnswer(false)">
+你好
+</button>
+
+<button onclick="checkAnswer(true)">
+谢谢
+</button>
+
+<button onclick="checkAnswer(false)">
+再见
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>3. "Tạm biệt" nghĩa là gì?</h2>
+
+<button onclick="checkAnswer(false)">
+谢谢
+</button>
+
+<button onclick="checkAnswer(false)">
+你好
+</button>
+
+<button onclick="checkAnswer(true)">
+再见
+</button>
+
+</div>
+
+<div class="card">
+
+<h2>Kết quả</h2>
+
+<h1 id="score">0 / 3</h1>
+
+<button onclick="resetQuiz()">
+🔄 Làm lại
+</button>
+
+<a class="button" href="lesson.html">
+⬅ Quay lại Bài học
+</a>
+
+</div>
+
+<script>
+
+let score=0;
+let answered=0;
+
+function checkAnswer(correct){
+
+answered++;
+
+if(correct){
+
+score++;
+
+alert("✅ Chính xác");
+
+}else{
+
+alert("❌ Chưa đúng");
+
+}
+
+document.getElementById("score").innerHTML=score+" / 3";
+
+}
+
+function resetQuiz(){
+
+score=0;
+
+answered=0;
+
+document.getElementById("score").innerHTML="0 / 3";
+
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bảng chữ cái</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+<h1>🔤 Bảng chữ cái tiếng Việt</h1>
+
+<p>越南语字母</p>
+
+</header>
+
+<div class="card">
+
+<div class="letter">A</div>
+
+<p class="sound">Đọc là: A</p>
+
+<button onclick="speak('A')">
+🔊 Nghe phát âm
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="letter">Ă</div>
+
+<p class="sound">Đọc là: Ă</p>
+
+<button onclick="speak('Ă')">
+🔊 Nghe phát âm
+</button>
+
+</div>
+
+<div class="card">
+
+<div class="letter">Â</div>
+
+<p class="sound">Đọc là: Â</p>
+
+<button onclick="speak('Â')">
+🔊 Nghe phát âm
+</button>
+
+</div>
+
+<script>
+
+function speak(text){
+
+const speech=new SpeechSynthesisUtterance(text);
+
+speech.lang="vi-VN";
+
+speech.rate=0.8;
+
+speechSynthesis.speak(speech);
+
+}
+
+</script>
+
+</body>
+
+</html>
